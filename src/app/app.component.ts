@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, map, of, startWith } from 'rxjs';
 
 export class filteredOption {
   ObjId: number;
@@ -14,8 +14,7 @@ export class filteredOption {
 })
 export class AppComponent implements OnInit {
   myControl = new FormControl('');
-  filteredOption: Observable<filteredOption[]>;
-  OptionObj = [
+  OptionObj: filteredOption[] = [
     {
       ObjId: 1,
       ObjName: 'test'
@@ -24,7 +23,9 @@ export class AppComponent implements OnInit {
       ObjId: 2,
       ObjName: 'Demo'
     }
-  ]
+  ];
+  filteredOption: Observable<filteredOption[]>;
+  
  constructor(){}
   ngOnInit(){
     this.filteredOption = this.myControl.valueChanges.pipe(
@@ -33,12 +34,16 @@ export class AppComponent implements OnInit {
     );
   }
 
-  filter(val): filteredOption[]{
-    const filterVal = val.toLowerCase();
+  filter(val): any[]{
+    const filterVal = val;
     return this.OptionObj.filter((item) => item["ObjName"].toLowerCase().includes(filterVal));
   }
 
   displayfn(subject: filteredOption){
     return subject && subject.ObjName ? subject.ObjName : undefined;
+  }
+
+  clear(){
+    this.myControl.setValue('');
   }
 }
