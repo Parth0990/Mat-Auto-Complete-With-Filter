@@ -35,7 +35,14 @@ export class AppComponent implements OnInit {
   }
 
   filter(val): any[]{
+<<<<<<< HEAD
     const filterVal = val.toString().toLowerCase();
+=======
+    let filterVal = '';
+    if(val != ''){
+      filterVal = val.toLowerCase();
+    }
+>>>>>>> 6b610e82ffb1d73d8e719c003a0da935ce4eb940
     return this.OptionObj.filter((item) => item["ObjName"].toLowerCase().includes(filterVal));
   }
 
